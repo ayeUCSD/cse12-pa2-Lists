@@ -1,3 +1,4 @@
+import java.util.Arrays;
 public class ArrayGL<E> implements MyList<E> {
 
     E[] elements;
@@ -25,7 +26,7 @@ public class ArrayGL<E> implements MyList<E> {
      * doubles the size of the array
      */
     public void expandSize() {
-        E[] newArray = new E[2*size];
+        elements = Arrays.copyOf(elements, size*2); //(E[])new Object[2*size];
     }
     
     // Fill in all required methods here
