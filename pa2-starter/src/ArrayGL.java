@@ -7,7 +7,8 @@ public class ArrayGL<E> implements MyList<E> {
 
     public ArrayGL(E[] initialElements) {
         this.elements = initialElements;
-        this.size= this.index = initialElements.length - 1; //we want the index
+        this.size= initialElements.length;
+        this.index = initialElements.length - 1; //we want the index
     }
 
     
@@ -76,11 +77,13 @@ public class ArrayGL<E> implements MyList<E> {
     public E[] toArray() {
     	E[] output = (E[]) new Object[size];
     	int i = 0;
-    	for(E temp : elements) {
-    		if(temp != null) {
-    			output[i++] = temp;
+    	for(E e : elements) {
+    		if(e != null) {
+    			output[i++] = e;
     		}
     	}
+    	
+    	return output;
         
     }
     
@@ -104,6 +107,7 @@ public class ArrayGL<E> implements MyList<E> {
     
     
     public boolean isEmpty() {
-        return elements[0] != null;
+    	
+    	return size == 0;
     }
 }

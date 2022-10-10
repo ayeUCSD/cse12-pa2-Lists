@@ -48,6 +48,7 @@ public class TestLists {
 		// Using the generic list to create an Integer list
 		Integer[] int_input = {1, 2, 3};
 		MyList<Integer> int_s = makeList(int_input);
+		//assertEquals(false, int_s.isEmpty());
 		assertArrayEquals(int_input, int_s.toArray());
 		
 		// Using the generic list to create a String list
@@ -55,5 +56,19 @@ public class TestLists {
 		MyList<String> string_s = makeList(string_input);
 		assertArrayEquals(string_input, string_s.toArray());
 	}
+	
+	
+	
+	@Test
+	public void testMakeEmpty() {
+		Integer[] emptyArray = {};
+		MyList<Integer> array = makeList(emptyArray);
+		
+		assertArrayEquals(emptyArray, array.toArray());
+	}
+	
+	
+	
+	
 
 }

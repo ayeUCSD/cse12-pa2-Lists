@@ -14,20 +14,32 @@ public class LinkedGL<E> implements MyList<E> {
     int size;
 
     public LinkedGL(E[] contents) {
+    	if(contents.length == 0) {
+    		return;
+    	}
+    	this.size = contents.length;
         this.front = new Node(contents[0], null);
         Node temp = front;
         for(int i = 1; i < contents.length; i++) {
-        	temp.next = new Node(contents[i],null);
+        	temp.next = new Node(contents[i], null);
         	temp = temp.next;
         }
     }
     
     public void add(E input) {
+    	if(input == null) {
+    		return;
+    	}
     	Node end = getEnd();
     	end.next = new Node(input, null);
+    	size++;
     }
     
     public void remove(E input) {
+    	if(input == null) {
+    		return;
+    	}
+    	
     	Node temp = front;
     	Node previous = null;
     	while(temp != null && !temp.next.value.equals(input)) {
@@ -37,31 +49,57 @@ public class LinkedGL<E> implements MyList<E> {
     	if(temp == null) {
     		return;
     	}
+    	else if(temp == front) {
+    		front = front.next;
+    	}
+    	else {
     	previous.next = temp.next;
+    	}
+    	size--;
     }
+    
 
     public Node getEnd() {
     	Node temp = front;
     	while(temp.next != null) {
     		temp = temp.next;
     	}
+    	return temp;
     }
     
     // Fill in all methods
     // Fill in all required methods here
     @SuppressWarnings("unchecked")
     public E[] toArray() {
-    	return null;
+    	E[] output = (E[]) new Object[size];
+    	int i = 0;
+    	for(Node n = front; n != null; n = n.next) {
+    		output[i++] = n.value;
+    		
+    	}
+    	return output;
     }
     
     @SuppressWarnings("unchecked")
     public void transformAll(MyTransformer mt) {
+    	for(Node n = front; n != null; n = n.next) {
+    		n.value = (E)mt.transformElement(n.value);
+    	}
     }
     public void chooseAll(MyChooser mc) {
+    	Node previous;
+    	for(Node n = front; n != null; n = n.next) {
+    		previous = n;
+    		if(!mc.chooseElement(n.value)) {
+    			remove(n.value);
+    			n = previous;
+    		}
+    		
+    	}
     }
     
     
     public boolean isEmpty() {
-    	return false;
+    	return size == 0;
     }
 }
