@@ -35,13 +35,35 @@ public class LinkedGL<E> implements MyList<E> {
     	size++;
     }
     
+    
+    
     public void remove(E input) {
-    	if(input == null) {
-    		return;
-    	}
-    	
     	Node current = front;
     	Node previous = null;
+    	
+    	//run if we are trying to remove null
+    	if(input == null) {
+    	    while( current != null){
+    	        if(current.value == null) {
+    	            break;
+    	        }
+    	        else {
+
+    	            previous = current;
+    	            current = current.next;
+    	        }
+    	    }
+    	  if(current == null) {
+    	        return;
+    	  }
+    	  previous.next = current.next;
+    	  size--;
+    	  return;
+    	  
+    	}
+    	
+    	
+    	
     	while(current != null) {
     		if(current.value != null && current.value.equals(input)) {
     			break;
@@ -54,7 +76,11 @@ public class LinkedGL<E> implements MyList<E> {
     		return;
     	}
     	else if(current == front) {
-    		front = front.next;
+    	    if(front.next == null) {
+    	        front.value = null;
+    	    } else {
+    	        front = front.next;
+    	    }
     	}
     	else {
     	previous.next = current.next;
@@ -75,6 +101,9 @@ public class LinkedGL<E> implements MyList<E> {
     // Fill in all required methods here
     @SuppressWarnings("unchecked")
     public E[] toArray() {
+        if(size == 0) {
+            return (E[]) new  Object[0];
+        }
     	E[] output = (E[]) new Object[size];
     	int i = 0;
     	for(Node n = front; n != null; n = n.next) {
@@ -95,10 +124,8 @@ public class LinkedGL<E> implements MyList<E> {
     public void chooseAll(MyChooser mc) {
     	Node previous;
     	for(Node n = front; n != null; n = n.next) {
-    		previous = n;
-    		if(n.value!= null && !mc.chooseElement(n.value)) {
+    		if(n.value == null || !mc.chooseElement(n.value)) {
     			remove(n.value);
-    			n = previous;
     		}
     		
     	}

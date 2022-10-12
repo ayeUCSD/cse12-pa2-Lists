@@ -70,24 +70,17 @@ public class ArrayGL<E> implements MyList<E> {
     }
     
     // Fill in all required methods here
-    /**
-     * returns an array in the same order without null spaces between entries
-     */
     @SuppressWarnings("unchecked")
     public E[] toArray() {
-    	/**
     	E[] output = (E[]) new Object[size];
     	int i = 0;
     	for(E e : elements) {
-    		if(e != null) {
     			output[i++] = e;
-    		}
     	}
     	
     	return output;
-        */
-    	return elements;
     }
+    
     
     @SuppressWarnings("unchecked")
     public void transformAll(MyTransformer mt) {
@@ -97,14 +90,33 @@ public class ArrayGL<E> implements MyList<E> {
         	}
         }
     }
+    
+    @SuppressWarnings("unchecked")
     public void chooseAll(MyChooser mc) {
     	for(int i = 0; i < elements.length; i++) {
-        	if(!mc.chooseElement(elements[i])){
+        	if(elements[i] == null || !mc.chooseElement(elements[i])){
         		elements[i] = null;
         	}
         }
-    	elements = toArray();
-        size = elements.length;
+    	int c = 0;
+    	for(int i = 0; i < elements.length; i++) {
+    	    if(elements[i] != null) {
+    	        c++;
+    	    }
+    	}
+    	
+    	E[] output = (E[]) new Object[c];
+    	
+    	c = 0;
+    	for(E e: elements) {
+    	    if(e != null) {
+    	        output[c] = e;
+    	        c++;
+    	    }
+    	}
+    	
+    	elements = output;
+        size = output.length;
     }
     
     

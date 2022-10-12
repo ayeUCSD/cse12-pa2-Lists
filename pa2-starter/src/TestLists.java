@@ -92,25 +92,42 @@ public class TestLists {
 	
 	@Test
 	public void testChooser() {
-		String[] filled = {"12345", "123456", "123", "1234567",""};
-		String[] expected= {"123456"  , "1234567" };
-		MyList<String> array = makeList(filled);
-		MyChooser mc = new LongWordChooser();
-		array.chooseAll(mc);
-		assertArrayEquals(expected, array.toArray());
+	    MyChooser mc = new EvenNumberChooser();
+		Integer[] filled = {1,2,4,null,0,1,6,8};
+		Integer[] expected = {2,4,0,6,8};
+		MyList<Integer> array2 = makeList(filled);
 		
-		Integer[] filled2 = {1,2,4,null,0,1,6,8};
-		Integer[] expected2 = {2,4,6,8};
-		MyList<Integer> array2 = makeList(filled2);
-		mc = new EvenNumberChooser();
 		array2.chooseAll(mc);
 
-		assertArrayEquals(expected2, array2.toArray());
+		assertArrayEquals(expected, array2.toArray());
 		
 		
 	}
 	
+	@Test
+	public void testChooser2() {
+	    String[] filled = {"12345", "123456", "123", "1234567",""};
+        String[] expected= {"123456"  , "1234567" };
+        MyList<String> array = makeList(filled);
+        MyChooser mc = new LongWordChooser();
+        array.chooseAll(mc);
+        assertArrayEquals(expected, array.toArray());
+	}
 	
+	
+	@Test
+	public void sillyTests() {
+	    MyChooser mc = new EvenNumberChooser();
+        Integer[] filled = {1};
+        Integer[] expected = {};
+        MyList<Integer> array2 = makeList(filled);
+        array2.chooseAll(mc);
+        assertArrayEquals(expected, array2.toArray());
+	    
+	    
+	    
+	    
+	}
 	
 	
 	
