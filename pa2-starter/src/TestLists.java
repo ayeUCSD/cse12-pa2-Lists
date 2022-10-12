@@ -63,9 +63,53 @@ public class TestLists {
 	public void testMakeEmpty() {
 		Integer[] emptyArray = {};
 		MyList<Integer> array = makeList(emptyArray);
-		
-		assertArrayEquals(emptyArray, array.toArray());
+		Integer[] filledArray = {1,2,3,4,5};
+		assertEquals(true, array.isEmpty());
+		array = makeList(filledArray);
+		assertEquals(false,array.isEmpty());
 	}
+	
+	
+	
+	@Test
+	public void testTransformer() {
+		String[] filled = {"A", "a", "b", "c","d"};
+		String[] expected= {"A", "A" , "B" , "C" , "D"};
+		MyList<String> array = makeList(filled);
+		MyTransformer mt = new UpperCaseTransformer();
+		array.transformAll(mt);
+		assertArrayEquals(expected, array.toArray());
+		
+		Integer[] filled2 = {1,2,null,8000,6,9,7};
+		Integer[] expected2 = {1,0,null,0,0,1,1};
+		MyList<Integer> array2 = makeList(filled2);
+		mt = new ModByTwoTransformer();
+		array2.transformAll(mt);
+
+		assertArrayEquals(expected2, array2.toArray());
+		
+	}
+	
+	@Test
+	public void testChooser() {
+		String[] filled = {"12345", "123456", "123", "1234567",""};
+		String[] expected= {"123456"  , "1234567" };
+		MyList<String> array = makeList(filled);
+		MyChooser mc = new LongWordChooser();
+		array.chooseAll(mc);
+		assertArrayEquals(expected, array.toArray());
+		
+		Integer[] filled2 = {1,2,4,null,0,1,6,8};
+		Integer[] expected2 = {2,4,6,8};
+		MyList<Integer> array2 = makeList(filled2);
+		mc = new EvenNumberChooser();
+		array2.chooseAll(mc);
+
+		assertArrayEquals(expected2, array2.toArray());
+		
+		
+	}
+	
 	
 	
 	

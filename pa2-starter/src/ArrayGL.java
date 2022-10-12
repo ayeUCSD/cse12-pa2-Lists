@@ -75,6 +75,7 @@ public class ArrayGL<E> implements MyList<E> {
      */
     @SuppressWarnings("unchecked")
     public E[] toArray() {
+    	/**
     	E[] output = (E[]) new Object[size];
     	int i = 0;
     	for(E e : elements) {
@@ -84,7 +85,8 @@ public class ArrayGL<E> implements MyList<E> {
     	}
     	
     	return output;
-        
+        */
+    	return elements;
     }
     
     @SuppressWarnings("unchecked")

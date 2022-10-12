@@ -40,20 +40,24 @@ public class LinkedGL<E> implements MyList<E> {
     		return;
     	}
     	
-    	Node temp = front;
+    	Node current = front;
     	Node previous = null;
-    	while(temp != null && !temp.next.value.equals(input)) {
-    		previous = temp;
-    		temp = temp.next;
+    	while(current != null) {
+    		if(current.value != null && current.value.equals(input)) {
+    			break;
+    		}
+    		previous = current;
+    		current = current.next;
     	}
-    	if(temp == null) {
+    	
+    	if(current == null) {
     		return;
     	}
-    	else if(temp == front) {
+    	else if(current == front) {
     		front = front.next;
     	}
     	else {
-    	previous.next = temp.next;
+    	previous.next = current.next;
     	}
     	size--;
     }
@@ -83,14 +87,16 @@ public class LinkedGL<E> implements MyList<E> {
     @SuppressWarnings("unchecked")
     public void transformAll(MyTransformer mt) {
     	for(Node n = front; n != null; n = n.next) {
+    		if(n.value != null) {
     		n.value = (E)mt.transformElement(n.value);
+    		}
     	}
     }
     public void chooseAll(MyChooser mc) {
     	Node previous;
     	for(Node n = front; n != null; n = n.next) {
     		previous = n;
-    		if(!mc.chooseElement(n.value)) {
+    		if(n.value!= null && !mc.chooseElement(n.value)) {
     			remove(n.value);
     			n = previous;
     		}

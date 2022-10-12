@@ -9,3 +9,10 @@ class LongWordChooser implements MyChooser<String> {
 } 
 
 // Add your choosers here
+
+class EvenNumberChooser implements MyChooser<Integer>{
+	@Override
+	public boolean chooseElement(Integer input) {
+		return input%2 == 0;
+	}
+}
