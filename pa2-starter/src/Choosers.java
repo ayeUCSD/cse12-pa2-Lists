@@ -16,3 +16,11 @@ class EvenNumberChooser implements MyChooser<Integer>{
 		return input%2 == 0;
 	}
 }
+
+
+class BigNumberChooser implements MyChooser<Integer>{
+
+	public boolean chooseElement(Integer input){
+		return input >= 100;
+	}
+}

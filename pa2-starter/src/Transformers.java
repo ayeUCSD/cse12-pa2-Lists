@@ -14,3 +14,11 @@ class ModByTwoTransformer implements MyTransformer<Integer>{
 		return input%2;
 	}
 }
+
+
+class SetToThree implements MyTransformer<Integer>{
+	public Integer transformElement(Integer input){
+		return 3;
+	}
+		
+}
